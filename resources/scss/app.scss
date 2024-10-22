@@ -1,0 +1,14 @@
+@import '~bootstrap/scss/bootstrap';
+
+main {
+    background-image: url('../img/testimg.webp');
+    background-repeat: no-repeat;
+    h1 {
+        color: greenyellow;
+    }
+
+    img {
+        height: 335px;
+        border-radius: 15px;
+    }
+}
