@@ -7,9 +7,5 @@
     Laravel Welcome
 </h1>
 
-<a href="{{ route('about') }}">
-    About
-</a>
-
 
 @endsection

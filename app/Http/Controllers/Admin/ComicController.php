@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+// Model
+
+use App\Models\Comic;
+
 class ComicController extends Controller
 {
     /**
@@ -12,7 +16,8 @@ class ComicController extends Controller
      */
     public function index()
     {
-        //
+        $comics = Comic::get();
+        return view('comics.index', compact('comics'));
     }
 
     /**
@@ -20,7 +25,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        return view('comics.create');
     }
 
     /**
@@ -28,15 +33,24 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $comic = new Comic();
+        $comic->title = $data['title'];
+        $comic->price = $data['price'];
+        $comic->save();
+
+        return redirect()->route('comics.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Comic $comic)
     {
-        //
+
+        return view('comics.show', compact('comic'));
+
     }
 
     /**
