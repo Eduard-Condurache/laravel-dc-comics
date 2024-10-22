@@ -4,8 +4,12 @@
 
 <div>
     <h1>
-        {{ $testTest2 }}
+        SONO L'ABOUT
     </h1>
+
+    <a href="{{ route('welcome') }}">
+        Welcome
+    </a>
 </div>
 
 @endsection    

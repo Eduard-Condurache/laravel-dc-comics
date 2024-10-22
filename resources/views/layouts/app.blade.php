@@ -10,8 +10,6 @@
     </head>
     <body>
 
-        @include('partials.global-header')
-
         <main>
             @yield('main-content')
         </main>

@@ -4,10 +4,12 @@
 
 @section('main-content')
 <h1>
-    Laravel Start 1
+    Laravel Welcome
 </h1>
 
-<h2>
-    Ciao {{ $firstName }} {{ $lastName }}
-</h2>
+<a href="{{ route('about') }}">
+    About
+</a>
+
+
 @endsection
