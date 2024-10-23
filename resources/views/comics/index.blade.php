@@ -27,6 +27,7 @@
             <th scope="col">Series</th>
             <th scope="col">Prezzo</th>
             <th scope="col">Azione</th>
+            <th scope="col">Modifica</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +41,11 @@
             <td>
               <a href="{{ route('comics.show',['comic' => $comic->id]) }}" class="btn btn-primary">
                 VEDI
+              </a>
+            </td>
+            <td>
+              <a href="{{ route('comics.edit',['comic' => $comic->id]) }}" class="btn btn-danger">
+                Modifica
               </a>
             </td>
           </tr>

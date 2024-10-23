@@ -67,17 +67,35 @@ class ComicController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Comic $comic)
     {
-        //
+        return view('comics.edit', compact('comic'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Comic $newComic)
     {
-        //
+
+        $data = $request->all();
+
+        $newComic->title = $data['title'];
+        $newComic->description = $data['description'];
+        $newComic->thumb = $data['thumb'];
+        $newComic->price = floatval($data['price']);;
+        $newComic->series = $data['series'];
+        $newComic->sale_date = $data['sale_date'];
+        $newComic->type = $data['type'];
+        $explodeArtists = explode(',',$data['artists']);
+        $jsonArtists = json_encode($explodeArtists);
+        $newComic->artists = $jsonArtists;
+        $explodeWriters = explode(',',$data['writers']);
+        $jsonWriters = json_encode($explodeWriters);
+        $newComic->writers = $jsonWriters;
+        $newComic->save();
+
+        return redirect()->route('comics.show', ['comic' => $newComic->id]);
     }
 
     /**
