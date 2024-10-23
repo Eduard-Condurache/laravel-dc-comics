@@ -11,9 +11,14 @@
                 <h1 class="my-3">
                     {{ $comic->title }}
                 </h1>
-                <a href="{{ route('comics.index') }}" class="btn btn-primary">
-                    Torna ai comics
-                </a>
+                <div>
+                    <a href="{{ route('comics.index') }}" class="btn btn-primary">
+                        Torna ai comics
+                    </a>
+                    <a href="{{ route('comics.edit', ['comic' => $comic->id]) }}" class="btn btn-danger">
+                        Modifica
+                    </a>
+                </div>
             </div>
 
             <div class="card mb-3 text-bg-dark">

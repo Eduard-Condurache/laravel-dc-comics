@@ -28,6 +28,7 @@
             <th scope="col">Prezzo</th>
             <th scope="col">Azione</th>
             <th scope="col">Modifica</th>
+            <th scope="col">Elimina</th>
           </tr>
         </thead>
         <tbody>
@@ -44,9 +45,21 @@
               </a>
             </td>
             <td>
-              <a href="{{ route('comics.edit',['comic' => $comic->id]) }}" class="btn btn-danger">
+              <a href="{{ route('comics.edit',['comic' => $comic->id]) }}" class="btn btn-warning">
                 Modifica
               </a>
+            </td>
+            <td>
+              <form
+                onsubmit="return confirm('Sei sicuro di voler cancellare il comic?')" 
+                action="{{ route('comics.destroy',['comic' => $comic->id]) }}" 
+                method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">
+                  Elimina
+                </button>
+              </form>
             </td>
           </tr>
           @endforeach

@@ -75,34 +75,37 @@ class ComicController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comic $newComic)
+    public function update(Request $request, Comic $comic)
     {
 
         $data = $request->all();
 
-        $newComic->title = $data['title'];
-        $newComic->description = $data['description'];
-        $newComic->thumb = $data['thumb'];
-        $newComic->price = floatval($data['price']);;
-        $newComic->series = $data['series'];
-        $newComic->sale_date = $data['sale_date'];
-        $newComic->type = $data['type'];
+        $comic->title = $data['title'];
+        $comic->description = $data['description'];
+        $comic->thumb = $data['thumb'];
+        $comic->price = floatval($data['price']);;
+        $comic->series = $data['series'];
+        $comic->sale_date = $data['sale_date'];
+        $comic->type = $data['type'];
         $explodeArtists = explode(',',$data['artists']);
         $jsonArtists = json_encode($explodeArtists);
-        $newComic->artists = $jsonArtists;
+        $comic->artists = $jsonArtists;
         $explodeWriters = explode(',',$data['writers']);
         $jsonWriters = json_encode($explodeWriters);
-        $newComic->writers = $jsonWriters;
-        $newComic->save();
+        $comic->writers = $jsonWriters;
+        $comic->save();
 
-        return redirect()->route('comics.show', ['comic' => $newComic->id]);
+        return redirect()->route('comics.show', ['comic' => $comic->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Comic $comic)
     {
-        //
+
+        $comic->delete();
+
+        return redirect()->route('comics.index');
     }
 }

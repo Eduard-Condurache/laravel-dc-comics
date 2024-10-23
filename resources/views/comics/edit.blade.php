@@ -1,6 +1,6 @@
 @extends ('layouts.app')
 
-@section ('page-title')
+@section ('page-title', 'Modifica')
 
 @section('main-content')
 
@@ -202,9 +202,12 @@
                         required>{{ $comic->description }}</textarea>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-danger">
+                    <button type="submit" class="btn btn-warning">
                         Modifica
                     </button>
+                    <a href="{{ route('comics.show', ['comic' => $comic->id]) }}" type="submit" class="btn btn-secondary">
+                        Annulla
+                    </a>
                 </div>
             
             </form>
