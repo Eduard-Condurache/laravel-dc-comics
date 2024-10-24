@@ -46,7 +46,7 @@
                                 </li>
                             </ul>
                             <p>
-                                Artists:
+                                Artisti:
                                 {{ implode(', ', json_decode($comic->artists, true)) }}
                             </p>
                             <p>

@@ -19,6 +19,16 @@
                 </a>
             </div>
 
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <form action="{{ route('comics.update', ['comic' => $comic->id]) }}" method="POST" class="text-white">
 
                 @csrf
@@ -39,7 +49,7 @@
                             id="title"
                             value="{{ $comic->title }}"
                             placeholder="Inserisci il titolo" 
-                            maxlength="128" 
+                            maxlength="64" 
                             required>
                     </div>
                     <div class="col">
@@ -157,7 +167,7 @@
                         class="form-control" 
                         name="artists" 
                         id="artists"
-                        value="{{ implode(', ', json_decode($comic->artists, true)) }}"
+                        value="{{ implode(', ', json_decode($comic->writers, true)) }}"
                         aria-describedby="artists-help"
                         placeholder="Inserisci i artisti">
                     <div id="artists" class="form-text text-white">
@@ -176,7 +186,7 @@
                         class="form-control" 
                         name="writers" 
                         id="writers" 
-                        value="{{ implode(', ', json_decode($comic->writers, true)) }}"
+                        value="{{ implode(',', json_decode($comic->writers, true)) }}"
                         aria-describedby="writers-help"
                         placeholder="Inserisci i artisti">
                     <div id="writers" class="form-text text-white">

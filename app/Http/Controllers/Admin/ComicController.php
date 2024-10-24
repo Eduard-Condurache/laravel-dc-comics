@@ -33,25 +33,43 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $request->validate([
+            'title' => 'required|min:3|max:64',
+            'description' => 'required|min:3|max:4098',
+            'thumb' => 'nullable|max:2048|url',
+            'price' => 'required|numeric',
+            'series' => 'required|min:3|max:64',
+            'sale_date' => 'nullable|date',
+            'type' => 'required|min:3|max:32',
+            'artists' => 'nullable',
+            'writers' => 'nullable'
+        ]);
+
         $data = $request->all();
 
-        $newComic = new Comic();
-        $newComic->title = $data['title'];
-        $newComic->description = $data['description'];
-        $newComic->thumb = $data['thumb'];
-        $newComic->price = floatval($data['price']);;
-        $newComic->series = $data['series'];
-        $newComic->sale_date = $data['sale_date'];
-        $newComic->type = $data['type'];
-        $explodeArtists = explode(',',$data['artists']);
-        $jsonArtists = json_encode($explodeArtists);
-        $newComic->artists = $jsonArtists;
-        $explodeWriters = explode(',',$data['writers']);
-        $jsonWriters = json_encode($explodeWriters);
-        $newComic->writers = $jsonWriters;
-        $newComic->save();
+        $data['artists'] = json_encode(explode(',', $data['artists']));
+        $data['writers'] = json_encode(explode(',', $data['writers']));
 
-        return redirect()->route('comics.show', ['comic' => $newComic->id]);
+        $comic = Comic::create($data);
+
+        // $newComic = new Comic();
+        // $newComic->title = $data['title'];
+        // $newComic->description = $data['description'];
+        // $newComic->thumb = $data['thumb'];
+        // $newComic->price = floatval($data['price']);;
+        // $newComic->series = $data['series'];
+        // $newComic->sale_date = $data['sale_date'];
+        // $newComic->type = $data['type'];
+        // $explodeArtists = explode(',',$data['artists']);
+        // $jsonArtists = json_encode($explodeArtists);
+        // $newComic->artists = $jsonArtists;
+        // $explodeWriters = explode(',',$data['writers']);
+        // $jsonWriters = json_encode($explodeWriters);
+        // $newComic->writers = $jsonWriters;
+        // $newComic->save();
+
+        return redirect()->route('comics.show', ['comic' => $comic->id]);
     }
 
     /**
@@ -78,22 +96,39 @@ class ComicController extends Controller
     public function update(Request $request, Comic $comic)
     {
 
+        $request->validate([
+            'title' => 'required|min:3|max:64',
+            'description' => 'required|min:3|max:4098',
+            'thumb' => 'nullable|max:2048|url',
+            'price' => 'required|numeric',
+            'series' => 'required|min:3|max:64',
+            'sale_date' => 'nullable|date',
+            'type' => 'required|min:3|max:32',
+            'artists' => 'nullable',
+            'writers' => 'nullable'
+        ]);
+
         $data = $request->all();
 
-        $comic->title = $data['title'];
-        $comic->description = $data['description'];
-        $comic->thumb = $data['thumb'];
-        $comic->price = floatval($data['price']);;
-        $comic->series = $data['series'];
-        $comic->sale_date = $data['sale_date'];
-        $comic->type = $data['type'];
-        $explodeArtists = explode(',',$data['artists']);
-        $jsonArtists = json_encode($explodeArtists);
-        $comic->artists = $jsonArtists;
-        $explodeWriters = explode(',',$data['writers']);
-        $jsonWriters = json_encode($explodeWriters);
-        $comic->writers = $jsonWriters;
-        $comic->save();
+        $data['artists'] = json_encode(explode(',', $data['artists']));
+        $data['writers'] = json_encode(explode(',', $data['writers']));
+        
+        $comic->update($data);
+
+        // $comic->title = $data['title'];
+        // $comic->description = $data['description'];
+        // $comic->thumb = $data['thumb'];
+        // $comic->price = floatval($data['price']);;
+        // $comic->series = $data['series'];
+        // $comic->sale_date = $data['sale_date'];
+        // $comic->type = $data['type'];
+        // $explodeArtists = explode(',',$data['artists']);
+        // $jsonArtists = json_encode($explodeArtists);
+        // $comic->artists = $jsonArtists;
+        // $explodeWriters = explode(',',$data['writers']);
+        // $jsonWriters = json_encode($explodeWriters);
+        // $comic->writers = $jsonWriters;
+        // $comic->save();
 
         return redirect()->route('comics.show', ['comic' => $comic->id]);
     }

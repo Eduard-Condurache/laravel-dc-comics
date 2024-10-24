@@ -19,6 +19,16 @@
                 </a>
             </div>
 
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <form action="{{ route('comics.store') }}" method="POST" class="text-white">
 
                 @csrf
@@ -37,7 +47,7 @@
                             name="title" 
                             id="title" 
                             placeholder="Inserisci il titolo" 
-                            maxlength="128" 
+                            maxlength="64" 
                             required>
                     </div>
                     <div class="col">
