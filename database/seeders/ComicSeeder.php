@@ -16,20 +16,40 @@ class ComicSeeder extends Seeder
         $comics = config('comics');
 
         foreach ($comics as $comic) {
-            $newComic = new Comic();
-            $newComic->title = $comic['title'];
-            $newComic->description = $comic['description'];
-            $newComic->thumb = $comic['thumb'];
+
             $explodePrice = explode('$', $comic['price']);
-            $newComic->price = floatval($explodePrice[1]);
-            $newComic->series = $comic['series'];
-            $newComic->sale_date = $comic['sale_date'];
-            $newComic->type = $comic['type'];
+            $floatPrice = floatval($explodePrice[1]);
+
             $jsonArtists = json_encode($comic['artists']);
-            $newComic->artists = $jsonArtists;
             $jsonWriters = json_encode($comic['writers']);
-            $newComic->writers = $jsonWriters;
-            $newComic->save();
+
+            $comic = Comic::create([
+                'title' => $comic['title'],
+                'description' => $comic['description'],
+                'thumb' => $comic['thumb'],
+                'price' => $floatPrice,
+                'series' => $comic['series'],
+                'sale_date' => $comic['sale_date'],
+                'type' => $comic['type'],
+                'artists' => $jsonArtists,
+                'writers' => $jsonWriters
+
+            ]);
+
+            // $newComic = new Comic();
+            // $newComic->title = $comic['title'];
+            // $newComic->description = $comic['description'];
+            // $newComic->thumb = $comic['thumb'];
+            // $explodePrice = explode('$', $comic['price']);
+            // $newComic->price = floatval($explodePrice[1]);
+            // $newComic->series = $comic['series'];
+            // $newComic->sale_date = $comic['sale_date'];
+            // $newComic->type = $comic['type'];
+            // $jsonArtists = json_encode($comic['artists']);
+            // $newComic->artists = $jsonArtists;
+            // $jsonWriters = json_encode($comic['writers']);
+            // $newComic->writers = $jsonWriters;
+            // $newComic->save();
         }
     }
 }
