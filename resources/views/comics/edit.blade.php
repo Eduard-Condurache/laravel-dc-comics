@@ -44,10 +44,10 @@
                         </label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control @error('title') is-invalid @enderror" 
                             name="title" 
                             id="title"
-                            value="{{ $comic->title }}"
+                            value="{{ old('title', $comic->title) }}"
                             placeholder="Inserisci il titolo" 
                             maxlength="64" 
                             required>
@@ -60,11 +60,11 @@
                         </label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control @error('thumb') is-invalid @enderror" 
                             name="thumb" 
                             id="thumb"
                             maxlength="2048"
-                            value="{{ $comic->thumb }}"
+                            value="{{ old('thumb', $comic->thumb) }}"
                             placeholder="Inserisci la copertina" 
                             maxlength="64">
                     </div>
@@ -81,11 +81,11 @@
                         </label>
                         <input 
                             type="number" 
-                            class="form-control" 
+                            class="form-control @error('price') is-invalid @enderror" 
                             name="price" 
                             id="price"
                             step="0.01"
-                            value="{{ $comic->price }}"
+                            value="{{ old('price', $comic->price) }}"
                             placeholder="Inserisci il prezzo"
                             max="999.99"
                             required>
@@ -99,11 +99,11 @@
                         </label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control @error('series') is-invalid @enderror" 
                             name="series" 
                             id="series"
                             maxlength="64"
-                            value="{{ $comic->series }}"
+                            value="{{ old('series', $comic->series) }}"
                             placeholder="Inserisci la serie" 
                             required>
                     </div>
@@ -118,10 +118,10 @@
                     </label>
                     <input 
                         type="date" 
-                        class="form-control" 
+                        class="form-control @error('sale_date') is-invalid @enderror" 
                         name="sale_date" 
                         id="sale_date" 
-                        value="{{ $comic->sale_date }}"
+                        value="{{ old('sale_date', $comic->sale_date) }}"
                         placeholder="Inserisci la data di vendita">
                 </div>
                 {{-- Type --}}
@@ -133,23 +133,22 @@
                         <span class="text-danger">*</span>
                     </label>
                     <select 
-                        class="form-select" 
+                        class="form-select @error('type') is-invalid @enderror" 
                         id="type" 
                         name="type"
-                        value="{{ $comic->type }}"
                         required>
                         <option
-                            @if(!isset($comic->type) | $comic->type == '')
+                            @if((old('type', $comic->type) == null ) | old('type', $comic->type) == '')
                                 selected
                             @endif  
                             disabled>Seleziona un tipo</option>
                         <option
-                            @if($comic->type == 'comic book')
+                            @if(old('type', $comic->type) == 'comic book')
                                 selected
                             @endif    
                             value="comic book">Comic book</option>
                         <option
-                            @if($comic->type == 'graphic novel')
+                            @if(old('type', $comic->type) == 'graphic novel')
                                 selected
                             @endif 
                             value="graphic novel">Graphic novel</option>
@@ -164,10 +163,10 @@
                     </label>
                     <input 
                         type="text" 
-                        class="form-control" 
+                        class="form-control @error('artists') is-invalid @enderror" 
                         name="artists" 
                         id="artists"
-                        value="{{ implode(', ', json_decode($comic->writers, true)) }}"
+                        value="{{ implode(',', json_decode(($comic->artists), true)) }}"
                         aria-describedby="artists-help"
                         placeholder="Inserisci i artisti">
                     <div id="artists" class="form-text text-white">
@@ -183,10 +182,10 @@
                     </label>
                     <input 
                         type="text" 
-                        class="form-control" 
+                        class="form-control @error('writers') is-invalid @enderror" 
                         name="writers" 
                         id="writers" 
-                        value="{{ implode(',', json_decode($comic->writers, true)) }}"
+                        value="{{ implode(',', json_decode(($comic->writers), true)) }}"
                         aria-describedby="writers-help"
                         placeholder="Inserisci i artisti">
                     <div id="writers" class="form-text text-white">
@@ -203,13 +202,13 @@
                         <span class="text-danger">*</span>
                     </label>
                     <textarea 
-                        class="form-control" 
+                        class="form-control @error('description') is-invalid @enderror" 
                         id="description" 
                         rows="3"
                         name="description"
                         maxlength="4098"
                         placeholder="Inserisci una descrizione"
-                        required>{{ $comic->description }}</textarea>
+                        required>{{ old('description', $comic->description) }}</textarea>
                 </div>
                 <div>
                     <button type="submit" class="btn btn-warning">
